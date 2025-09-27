@@ -1,364 +1,896 @@
 <!DOCTYPE html>
-
 <html lang="es" class="">
-
 <head>
-
   <meta charset="UTF-8" />
-
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SVES - Sistema de Votación Electrónica Segura | USTA Tunja</title>
 
-  <title>Sitio – Fase 6. Despliegue</title>
-
-
-
-  <!-- Tailwind vía CDN -->
-
+  <!-- Tailwind CSS Framework via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Config Tailwind para activar modo oscuro por clase -->
-
+  <!-- Configuración Tailwind para modo oscuro -->
   <script>
-
     tailwind.config = {
-
       darkMode: 'class'
-
     }
-
   </script>
 
-
-
-  <meta name="description" content="Ejemplo de sitio estático listo para desplegar gratis en GitHub Pages o Netlify." />
-
+  <meta name="description" content="Sistema de Votación Electrónica Segura (SVES) - Universidad Santo Tomás Tunja. Arquitectura en capas con principios de microservicios." />
 </head>
-
 <body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100">
-
-  <!-- NAV -->
-
-  <nav class="sticky top-0 bg-white/90 dark:bg-slate-900/80 backdrop-blur border-b border-slate-200 dark:border-slate-700">
-
-    <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
-
-      <a href="#" class="font-semibold">Fase 6. Despliegue - USTA</a>
-
+  
+  <!-- =========================== CAPA DE PRESENTACIÓN =========================== -->
+  <!-- Header Navigation Component -->
+  <nav class="sticky top-0 bg-white/90 dark:bg-slate-900/80 backdrop-blur border-b border-slate-200 dark:border-slate-700 z-50">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
       <div class="flex items-center gap-3">
-
-        <input id="search" type="search" placeholder="Buscar..."
-
-               class="border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-400 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring focus:ring-green-200 dark:focus:ring-green-500/30" />
-
-        <button id="themeBtn"
-
-                class="text-sm px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800">
-
-          Cambiar tema
-
-        </button>
-
+        <span class="text-2xl">🗳️</span>
+        <div>
+          <span class="font-semibold text-lg">SVES</span>
+          <span class="hidden md:inline text-sm text-slate-600 dark:text-slate-400 ml-2">Universidad Santo Tomás</span>
+        </div>
       </div>
-
+      <div class="flex items-center gap-3">
+        <span class="text-sm text-slate-600 dark:text-slate-400" id="tiempoRestante">Cargando...</span>
+        <button id="themeBtn" 
+                class="text-sm px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+          🌙 Tema
+        </button>
+      </div>
     </div>
-
   </nav>
 
-
-
-  <!-- HERO -->
-
-  <header class="bg-gradient-to-br from-green-600 to-green-800 text-white dark:from-green-700 dark:to-green-900">
-
-    <div class="max-w-5xl mx-auto px-4 py-16">
-
-      <h1 class="text-3xl md:text-5xl font-bold">🚀 Desplegando aplicaciones modernas</h1>
-
-      <p class="mt-3 text-green-100/90 max-w-2xl">Descubre cómo crear y desplegar sitios web estáticos de forma rápida y eficiente. Este proyecto demuestra las mejores prácticas para el desarrollo web moderno usando tecnologías actuales.</p>
-
-      <div class="flex flex-wrap gap-4 mt-6">
-
-        <a href="#features"
-
-           class="inline-block bg-white text-green-700 dark:bg-slate-100 dark:text-green-900 font-medium px-5 py-2.5 rounded-xl shadow hover:shadow-md transition-all duration-200">
-
-           Ver características
-
-        </a>
-
-        <a href="#guia"
-
-           class="inline-block bg-green-500 hover:bg-green-400 text-white font-medium px-5 py-2.5 rounded-xl shadow hover:shadow-md transition-all duration-200">
-
-           📖 Guía de despliegue
-
-        </a>
-
-        <a href="#demo"
-
-           class="inline-block border-2 border-white hover:bg-white hover:text-green-700 text-white font-medium px-5 py-2.5 rounded-xl transition-all duration-200">
-
-           🎯 Ver demo
-
-        </a>
-
+  <!-- Hero Section Component -->
+  <header class="bg-gradient-to-br from-green-400 to-green-600 text-white dark:from-blue-500 dark:to-blue-700">
+    <div class="max-w-6xl mx-auto px-4 py-16">
+      <div class="text-center mb-8">
+        <h1 class="text-3xl md:text-5xl font-bold mb-4">Sistema de Votación Electrónica Segura</h1>
+        <p class="text-xl md:text-2xl mb-2">SVES - USTA Tunja</p>
+        <p class="mt-3 text-green-100/90 max-w-3xl mx-auto">
+          Implementación de arquitectura en capas con principios de microservicios para garantizar 
+          seguridad, escalabilidad y mantenibilidad en el proceso electoral estudiantil.
+        </p>
       </div>
-
+      
+      <!-- Call to Action Buttons -->
+      <div class="flex flex-wrap justify-center gap-4 mt-8">
+        <a href="#candidatos" 
+           class="inline-block bg-white text-green-700 dark:bg-slate-100 dark:text-blue-900 font-medium px-6 py-3 rounded-xl shadow hover:shadow-md transition-all duration-200">
+           Ver Candidatos
+        </a>
+        <a href="#votar" 
+           class="inline-block bg-green-500 hover:bg-green-400 dark:bg-blue-500 dark:hover:bg-blue-400 text-white font-medium px-6 py-3 rounded-xl shadow hover:shadow-md transition-all duration-200">
+           🗳️ Ejercer Voto
+        </a>
+        <a href="#resultados" 
+           class="inline-block border-2 border-white hover:bg-white hover:text-green-700 dark:hover:text-blue-700 text-white font-medium px-6 py-3 rounded-xl transition-all duration-200">
+           📊 Resultados
+        </a>
+      </div>
     </div>
-
   </header>
 
-
-
-  <!-- FEATURES -->
-
-  <section id="features" class="max-w-5xl mx-auto px-4 py-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-
-    <article class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700 hover:shadow-md transition-shadow">
-
-      <div class="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-xl flex items-center justify-center mb-4">
-
-        <span class="text-2xl">⚡</span>
-
-      </div>
-
-      <h3 class="font-semibold text-lg">Sin build</h3>
-
-      <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Usamos Tailwind por CDN (Red de Entrega de Contenido), así que no necesitas Node ni compilar. Desarrollo instantáneo.</p>
-
-    </article>
-
-    <article class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700 hover:shadow-md transition-shadow">
-
-      <div class="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-xl flex items-center justify-center mb-4">
-
-        <span class="text-2xl">🪶</span>
-
-      </div>
-
-      <h3 class="font-semibold text-lg">Ligero y rápido</h3>
-
-      <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Solo HTML, CSS y JS vanilla. Perfecto para demos, portafolios, documentación y proyectos académicos.</p>
-
-    </article>
-
-    <article class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700 hover:shadow-md transition-shadow">
-
-      <div class="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-xl flex items-center justify-center mb-4">
-
-        <span class="text-2xl">🌐</span>
-
-      </div>
-
-      <h3 class="font-semibold text-lg">Fácil de desplegar</h3>
-
-      <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Compatible con GitHub Pages, Netlify Drop, Vercel y cualquier hosting estático. Despliega en segundos.</p>
-
-    </article>
-
-  </section>
-
-
-
-  <!-- NUEVA SECCIÓN: GUÍA DE DESPLIEGUE -->
-
-  <section id="guia" class="bg-green-50 dark:bg-green-900/10 py-12">
-
-    <div class="max-w-4xl mx-auto px-4">
-
-      <h2 class="text-2xl md:text-3xl font-bold text-center mb-8">📚 Guía rápida de despliegue</h2>
-
-      <div class="grid md:grid-cols-2 gap-8">
-
-        <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
-
-          <h3 class="font-semibold text-lg mb-3">🐙 GitHub Pages</h3>
-
-          <ol class="space-y-2 text-sm text-slate-600 dark:text-slate-300">
-
-            <li>1. Sube tu código a un repositorio GitHub</li>
-
-            <li>2. Ve a Settings → Pages</li>
-
-            <li>3. Selecciona la rama main</li>
-
-            <li>4. ¡Tu sitio estará en línea!</li>
-
-          </ol>
-
+  <!-- System Status Banner -->
+  <section class="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 p-4 mb-8">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex items-center">
+        <span class="text-2xl mr-3">⚠️</span>
+        <div>
+          <h3 class="font-semibold text-yellow-800 dark:text-yellow-200">Estado del Sistema Electoral</h3>
+          <p class="text-yellow-700 dark:text-yellow-300 text-sm mt-1">
+            <strong>Período de votación:</strong> Hasta el 30 de Septiembre, 2025 a las 18:00. 
+            <span class="block mt-1">Sistema operativo bajo arquitectura segura de microservicios.</span>
+          </p>
         </div>
-
-        <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
-
-          <h3 class="font-semibold text-lg mb-3">🌟 Netlify</h3>
-
-          <ol class="space-y-2 text-sm text-slate-600 dark:text-slate-300">
-
-            <li>1. Arrastra tu carpeta a netlify.com/drop</li>
-
-            <li>2. Netlify procesará automáticamente</li>
-
-            <li>3. Obtienes una URL única</li>
-
-            <li>4. ¡Listo para compartir!</li>
-
-          </ol>
-
-        </div>
-
       </div>
-
     </div>
-
   </section>
 
-
-
-  <!-- DEMO SECTION -->
-
-  <section id="demo" class="max-w-5xl mx-auto px-4 py-12">
-
+  <!-- =========================== MÓDULO GESTIÓN DE CANDIDATOS =========================== -->
+  <section id="candidatos" class="max-w-6xl mx-auto px-4 py-12">
     <div class="text-center mb-8">
-
-      <h2 class="text-2xl md:text-3xl font-bold mb-4">🎯 Características en acción</h2>
-
-      <p class="text-slate-600 dark:text-slate-300">Explora las funcionalidades de este sitio web moderno</p>
-
+      <h2 class="text-2xl md:text-3xl font-bold mb-4">Registro de Candidatos</h2>
+      <p class="text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+        Candidatos registrados en el sistema electoral siguiendo protocolos de validación académica
+      </p>
     </div>
-
-    <div class="grid sm:grid-cols-2 gap-6">
-
-      <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
-
-        <h3 class="font-semibold text-lg mb-3">🌙 Modo oscuro</h3>
-
-        <p class="text-sm text-slate-600 dark:text-slate-300 mb-4">Cambia entre tema claro y oscuro usando el botón en la navegación.</p>
-
-        <button onclick="document.documentElement.classList.toggle('dark')" 
-
-                class="bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 rounded-lg transition-colors">
-
-          Probar modo oscuro
-
-        </button>
-
-      </div>
-
-      <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
-
-        <h3 class="font-semibold text-lg mb-3">🔍 Búsqueda</h3>
-
-        <p class="text-sm text-slate-600 dark:text-slate-300 mb-4">Campo de búsqueda funcional con diseño responsivo.</p>
-
-        <input type="search" placeholder="Prueba la búsqueda..."
-
-               class="w-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-400 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-green-200 dark:focus:ring-green-500/30" />
-
-      </div>
-
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" id="candidatosContainer">
+      <!-- Contenido generado dinámicamente por la capa de servicios -->
     </div>
-
   </section>
 
+  <!-- =========================== MÓDULO PROCESO DE VOTACIÓN =========================== -->
+  <section id="votar" class="bg-green-50 dark:bg-blue-900/10 py-12">
+    <div class="max-w-4xl mx-auto px-4">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-8">Proceso de Votación Segura</h2>
+      
+      <!-- Formulario de Autenticación (Capa de Seguridad) -->
+      <div id="identificacionForm" class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700 mb-6">
+        <h3 class="font-semibold text-lg mb-4 flex items-center">
+          <span class="mr-2">🔐</span>
+          Autenticación del Votante
+        </h3>
+        <form id="formIdentificacion" class="grid gap-4">
+          <div>
+            <label for="codigo" class="block text-sm font-medium mb-2">Código Estudiantil</label>
+            <input id="codigo" name="codigo" type="text" required 
+                   placeholder="Ejemplo: 2020123456" maxlength="10"
+                   class="w-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-400 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 dark:focus:ring-blue-500 focus:border-transparent" />
+            <small class="text-slate-500 dark:text-slate-400">Ingrese su código estudiantil de 10 dígitos</small>
+          </div>
+          <div>
+            <label for="facultad" class="block text-sm font-medium mb-2">Facultad de Adscripción</label>
+            <select id="facultad" name="facultad" required
+                    class="w-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 dark:focus:ring-blue-500 focus:border-transparent">
+              <option value="">Seleccione su facultad</option>
+              <option value="ingenieria">Facultad de Ingeniería</option>
+              <option value="derecho">Facultad de Derecho</option>
+              <option value="administracion">Facultad de Administración de Empresas</option>
+              <option value="psicologia">Facultad de Psicología</option>
+              <option value="comunicacion">Facultad de Comunicación Social</option>
+              <option value="contaduria">Facultad de Contaduría Pública</option>
+            </select>
+          </div>
+          <button type="submit" class="bg-green-600 hover:bg-green-700 dark:bg-blue-600 dark:hover:bg-blue-700 text-white rounded-lg px-4 py-2 w-fit transition-colors font-medium">
+            Validar Credenciales
+          </button>
+        </form>
+        <div id="statusIdentificacion" class="mt-3 text-sm"></div>
+      </div>
 
+      <!-- Interfaz de Votación (Oculta por defecto) -->
+      <div id="votacionForm" class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700 hidden">
+        <h3 class="font-semibold text-lg mb-4 flex items-center">
+          <span class="mr-2">🗳️</span>
+          Selección de Candidato
+        </h3>
+        <form id="formVotacion">
+          <div id="opcionesVoto" class="space-y-4">
+            <!-- Opciones generadas dinámicamente -->
+          </div>
+          <div class="mt-6 flex gap-4">
+            <button type="submit" class="bg-green-600 hover:bg-green-700 dark:bg-blue-600 dark:hover:bg-blue-700 text-white rounded-lg px-6 py-2 transition-colors font-medium">
+              ✅ Confirmar Selección
+            </button>
+            <button type="button" id="cancelarVoto" class="bg-gray-500 hover:bg-gray-600 text-white rounded-lg px-6 py-2 transition-colors font-medium">
+              ❌ Cancelar Proceso
+            </button>
+          </div>
+        </form>
+        <div id="statusVotacion" class="mt-3 text-sm"></div>
+      </div>
+    </div>
+  </section>
 
-  <!-- CONTACTO -->
-
-  <section class="max-w-2xl mx-auto px-4 pb-16">
-
+  <!-- =========================== MÓDULO REPORTES Y RESULTADOS =========================== -->
+  <section id="resultados" class="max-w-6xl mx-auto px-4 py-12">
+    <h2 class="text-2xl md:text-3xl font-bold text-center mb-8">Panel de Resultados</h2>
     <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
-
-      <h2 class="text-xl font-semibold">📬 Contacto y feedback</h2>
-
-      <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">Comparte tus comentarios sobre este proyecto de despliegue (formulario demo).</p>
-
-      <form id="contactForm" class="mt-4 grid gap-4">
-
-        <input name="nombre" required placeholder="Tu nombre"
-
-               class="border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-400 rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-green-200 dark:focus:ring-green-500/30" />
-
-        <input name="email" type="email" required placeholder="Tu email"
-
-               class="border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-400 rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-green-200 dark:focus:ring-green-500/30" />
-
-        <textarea name="mensaje" rows="4" required placeholder="Cuéntanos qué te parece este proyecto..."
-
-                  class="border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-400 rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-green-200 dark:focus:ring-green-500/30"></textarea>
-
-        <button class="bg-green-600 hover:bg-green-700 text-white rounded-lg px-4 py-2 w-fit transition-colors">Enviar feedback</button>
-
-      </form>
-
-      <p id="statusMsg" class="mt-3 text-sm"></p>
-
+      <div id="resultadosContainer">
+        <!-- Resultados generados por el servicio de reportes -->
+      </div>
+      <div class="mt-6 text-center border-t border-slate-200 dark:border-slate-700 pt-6">
+        <p class="text-sm text-slate-600 dark:text-slate-400">
+          <strong>Votos registrados:</strong> <span id="totalVotos" class="font-semibold">0</span>
+        </p>
+        <p class="text-xs text-slate-500 dark:text-slate-500 mt-2">
+          Sistema de conteo en tiempo real con verificación de integridad
+        </p>
+      </div>
     </div>
-
   </section>
 
-
-
-  <!-- FOOTER -->
-
-  <footer class="border-t border-slate-200 dark:border-slate-700">
-
-    <div class="max-w-5xl mx-auto px-4 py-6 text-sm text-slate-500 dark:text-slate-400 flex items-center justify-between">
-
-      <span>© <span id="year"></span> Proyecto Fase 6 - Universidad Santo Tomás</span>
-
-      <div class="flex gap-4">
-
-        <a class="hover:underline hover:text-green-600" href="https://tailwindcss.com/docs" target="_blank" rel="noreferrer">Tailwind Docs</a>
-
-        <a class="hover:underline hover:text-green-600" href="https://pages.github.com/" target="_blank" rel="noreferrer">GitHub Pages</a>
-
+  <!-- =========================== INFORMACIÓN DEL PROYECTO =========================== -->
+  <section class="bg-slate-100 dark:bg-slate-800 py-12 mt-16">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <h3 class="text-xl font-semibold mb-4">Proyecto Académico - Gerencia de Software 6</h3>
+      <div class="grid md:grid-cols-2 gap-6 text-sm">
+        <div>
+          <h4 class="font-medium mb-2">Equipo de Desarrollo</h4>
+          <ul class="text-slate-600 dark:text-slate-300 space-y-1">
+            <li>Diana Marcela Ayala Ortiz</li>
+            <li>Maryori Brigith Barrera Ascanio</li>
+            <li>Juan Sebastian Bonilla Leon</li>
+            <li>Johan Sebastián Jurado Hernández</li>
+            <li>Samuel Rodelfo Diaz Licht</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-medium mb-2">Especificaciones Técnicas</h4>
+          <ul class="text-slate-600 dark:text-slate-300 space-y-1">
+            <li>Arquitectura: N-Tier + Microservicios</li>
+            <li>Despliegue: Blue-Green (Netlify)</li>
+            <li>Seguridad: OWASP Compliance</li>
+            <li>CI/CD: Integración Continua</li>
+          </ul>
+        </div>
       </div>
-
     </div>
+  </section>
 
+  <!-- Footer -->
+  <footer class="border-t border-slate-200 dark:border-slate-700">
+    <div class="max-w-6xl mx-auto px-4 py-6 text-sm text-slate-500 dark:text-slate-400">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <span>&copy; <span id="year"></span> SVES - Universidad Santo Tomás Tunja</span>
+          <span class="block md:inline md:ml-2">Docente: Sergio Arley Puerto Moreno</span>
+        </div>
+        <div class="flex gap-4 text-xs">
+          <span class="flex items-center gap-1">🔒 Seguro</span>
+          <span class="flex items-center gap-1">📱 Responsive</span>
+          <span class="flex items-center gap-1">⚡ Optimizado</span>
+        </div>
+      </div>
+    </div>
   </footer>
 
+  <!-- =========================== MODAL DE CONFIRMACIÓN =========================== -->
+  <div id="modalConfirmacion" class="fixed inset-0 bg-black/50 flex items-center justify-center p-4 hidden z-50">
+    <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 max-w-md w-full shadow-xl">
+      <h3 class="font-semibold text-lg mb-4 flex items-center">
+        <span class="mr-2">🗳️</span>
+        Confirmación de Voto
+      </h3>
+      <p class="text-slate-600 dark:text-slate-300 mb-6">
+        ¿Confirma su voto por <span id="candidatoSeleccionado" class="font-semibold text-green-600 dark:text-blue-400"></span>?
+        <br><br>
+        <strong class="text-red-600 dark:text-red-400">⚠️ Esta acción es irreversible</strong>
+      </p>
+      <div class="flex gap-3">
+        <button id="confirmarVotoFinal" class="bg-green-600 hover:bg-green-700 dark:bg-blue-600 dark:hover:bg-blue-700 text-white rounded-lg px-4 py-2 transition-colors font-medium">
+          Confirmar Voto
+        </button>
+        <button id="cancelarVotoFinal" class="bg-gray-500 hover:bg-gray-600 text-white rounded-lg px-4 py-2 transition-colors font-medium">
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
 
-
+  <!-- =========================== JAVASCRIPT COMPLETO EMBEBIDO =========================== -->
   <script>
+    /**
+     * ===========================================================================================
+     * SISTEMA DE VOTACIÓN ELECTRÓNICA SEGURA (SVES)
+     * Universidad Santo Tomás - Tunja
+     * 
+     * Arquitectura: N-Tier simplificada pero funcional
+     * Equipo de Desarrollo: Gerencia de Software 6 - 2025
+     * ===========================================================================================
+     */
 
-    document.getElementById('year').textContent = new Date().getFullYear();
+    'use strict';
 
-    document.getElementById('themeBtn').addEventListener('click', function() {
+    // ===========================================================================================
+    // CAPA DE DATOS (DATA ACCESS LAYER)
+    // ===========================================================================================
 
-      document.documentElement.classList.toggle('dark');
+    const DataLayer = {
+      // Claves de almacenamiento
+      keys: {
+        votos: 'sves_votos_2025',
+        sesion: 'sves_sesion_usuario'
+      },
 
-    });
+      // Obtener votos almacenados
+      obtenerVotos() {
+        try {
+          const votos = localStorage.getItem(this.keys.votos);
+          return votos ? JSON.parse(votos) : [];
+        } catch (error) {
+          console.error('Error obteniendo votos:', error);
+          return [];
+        }
+      },
 
+      // Guardar nuevo voto
+      guardarVoto(voto) {
+        try {
+          const votos = this.obtenerVotos();
+          votos.push({
+            ...voto,
+            id: Date.now(),
+            timestamp: new Date().toISOString()
+          });
+          localStorage.setItem(this.keys.votos, JSON.stringify(votos));
+          return true;
+        } catch (error) {
+          console.error('Error guardando voto:', error);
+          return false;
+        }
+      },
 
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      // Verificar si ya votó
+      yaVoto(codigo) {
+        const votos = this.obtenerVotos();
+        return votos.some(voto => voto.codigo === codigo);
+      },
 
-      e.preventDefault();
-
-      const statusMsg = document.getElementById('statusMsg');
-
-      statusMsg.textContent = '✅ ¡Mensaje enviado correctamente! (Demo)';
-
-      statusMsg.className = 'mt-3 text-sm text-green-600 dark:text-green-400';
-
-      this.reset();
-
-    });
-
-    document.getElementById('search').addEventListener('input', function(e) {
-
-      const query = e.target.value.toLowerCase();
-
-      if (query.length > 2) {
-
-        console.log('Buscando:', query);
-
+      // Limpiar sistema (solo admin)
+      limpiarSistema() {
+        localStorage.removeItem(this.keys.votos);
+        localStorage.removeItem(this.keys.sesion);
       }
+    };
 
+    // ===========================================================================================
+    // CAPA DE LÓGICA DE NEGOCIO (BUSINESS LOGIC LAYER)
+    // ===========================================================================================
+
+    const BusinessLogic = {
+      // Candidatos registrados en el sistema
+      candidatos: [
+        {
+          id: 1,
+          nombre: "Ana María González Rodríguez",
+          facultad: "Facultad de Ingeniería",
+          propuestas: [
+            "Modernización de laboratorios de sistemas",
+            "Programa de becas de excelencia académica",
+            "Espacios de estudio colaborativo 24/7",
+            "Red de mentorías técnicas estudiantiles"
+          ],
+          avatar: "👩‍🎓"
+        },
+        {
+          id: 2,
+          nombre: "Carlos Eduardo Ramírez Pérez",
+          facultad: "Facultad de Derecho",
+          propuestas: [
+            "Consultorio jurídico gratuito para estudiantes",
+            "Defensoría estudiantil independiente",
+            "Transparencia en procesos administrativos",
+            "Mediación en conflictos académicos"
+          ],
+          avatar: "👨‍⚖️"
+        },
+        {
+          id: 3,
+          nombre: "María José Torres Vargas",
+          facultad: "Facultad de Psicología",
+          propuestas: [
+            "Centro de bienestar mental estudiantil",
+            "Programa de apoyo psicológico integral",
+            "Actividades de integración y recreación",
+            "Red de apoyo emocional estudiantil"
+          ],
+          avatar: "👩‍⚕️"
+        },
+        {
+          id: 4,
+          nombre: "Diego Alejandro Suárez Mora",
+          facultad: "Facultad de Administración",
+          propuestas: [
+            "Incubadora de emprendimiento estudiantil",
+            "Bolsa de trabajo especializada",
+            "Red de networking empresarial",
+            "Programa de prácticas profesionales"
+          ],
+          avatar: "👨‍💼"
+        }
+      ],
+
+      // Validar código estudiantil
+      validarCodigo(codigo) {
+        return /^\d{10}$/.test(codigo);
+      },
+
+      // Validar facultad
+      validarFacultad(facultad) {
+        const facultadesValidas = ['ingenieria', 'derecho', 'administracion', 'psicologia', 'comunicacion', 'contaduria'];
+        return facultadesValidas.includes(facultad);
+      },
+
+      // Obtener candidato por ID
+      obtenerCandidato(id) {
+        return this.candidatos.find(c => c.id === parseInt(id));
+      },
+
+      // Procesar voto
+      procesarVoto(candidatoId, codigo, facultad) {
+        // Validaciones
+        if (!this.validarCodigo(codigo)) {
+          return { exito: false, mensaje: 'Código estudiantil inválido' };
+        }
+
+        if (!this.validarFacultad(facultad)) {
+          return { exito: false, mensaje: 'Facultad no válida' };
+        }
+
+        if (DataLayer.yaVoto(codigo)) {
+          return { exito: false, mensaje: 'Ya has votado anteriormente' };
+        }
+
+        const candidato = this.obtenerCandidato(candidatoId);
+        if (!candidato) {
+          return { exito: false, mensaje: 'Candidato no válido' };
+        }
+
+        // Guardar voto
+        const voto = {
+          candidatoId: candidatoId,
+          candidatoNombre: candidato.nombre,
+          codigo: codigo,
+          facultad: facultad
+        };
+
+        if (DataLayer.guardarVoto(voto)) {
+          return { exito: true, mensaje: 'Voto registrado exitosamente', voto: voto };
+        } else {
+          return { exito: false, mensaje: 'Error técnico al guardar voto' };
+        }
+      },
+
+      // Obtener estadísticas
+      obtenerEstadisticas() {
+        const votos = DataLayer.obtenerVotos();
+        const stats = this.candidatos.map(candidato => {
+          const votosCandidato = votos.filter(voto => voto.candidatoId === candidato.id).length;
+          return {
+            ...candidato,
+            votos: votosCandidato,
+            porcentaje: votos.length > 0 ? ((votosCandidato / votos.length) * 100).toFixed(1) : 0
+          };
+        });
+
+        return {
+          candidatos: stats.sort((a, b) => b.votos - a.votos),
+          totalVotos: votos.length
+        };
+      }
+    };
+
+    // ===========================================================================================
+    // CAPA DE PRESENTACIÓN (PRESENTATION LAYER)
+    // ===========================================================================================
+
+    const UI = {
+      // Referencias a elementos DOM
+      elementos: {},
+
+      // Inicializar elementos
+      init() {
+        this.elementos = {
+          candidatosContainer: document.getElementById('candidatosContainer'),
+          opcionesVoto: document.getElementById('opcionesVoto'),
+          resultadosContainer: document.getElementById('resultadosContainer'),
+          totalVotos: document.getElementById('totalVotos'),
+          tiempoRestante: document.getElementById('tiempoRestante'),
+          year: document.getElementById('year'),
+          statusIdentificacion: document.getElementById('statusIdentificacion'),
+          statusVotacion: document.getElementById('statusVotacion'),
+          candidatoSeleccionado: document.getElementById('candidatoSeleccionado'),
+          modalConfirmacion: document.getElementById('modalConfirmacion'),
+          identificacionForm: document.getElementById('identificacionForm'),
+          votacionForm: document.getElementById('votacionForm')
+        };
+
+        // Establecer año
+        if (this.elementos.year) {
+          this.elementos.year.textContent = new Date().getFullYear();
+        }
+      },
+
+      // Renderizar candidatos
+      renderizarCandidatos() {
+        if (!this.elementos.candidatosContainer) return;
+
+        const html = BusinessLogic.candidatos.map(candidato => `
+          <article class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700 hover:shadow-md transition-shadow">
+            <div class="text-center mb-4">
+              <div class="text-6xl mb-3">${candidato.avatar}</div>
+              <h3 class="font-semibold text-lg">${candidato.nombre}</h3>
+              <p class="text-sm text-slate-600 dark:text-slate-300">${candidato.facultad}</p>
+            </div>
+            <div class="space-y-2">
+              <h4 class="font-medium text-sm text-green-600 dark:text-blue-400">Propuestas:</h4>
+              <ul class="text-xs text-slate-600 dark:text-slate-300 space-y-1">
+                ${candidato.propuestas.map(propuesta => `<li class="flex items-start gap-2"><span class="text-green-500 dark:text-blue-500 mt-0.5">•</span>${propuesta}</li>`).join('')}
+              </ul>
+            </div>
+          </article>
+        `).join('');
+
+        this.elementos.candidatosContainer.innerHTML = html;
+      },
+
+      // Renderizar opciones de voto
+      renderizarOpcionesVoto() {
+        if (!this.elementos.opcionesVoto) return;
+
+        const html = BusinessLogic.candidatos.map(candidato => `
+          <label class="flex items-center p-4 border border-slate-200 dark:border-slate-600 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 cursor-pointer transition-colors">
+            <input type="radio" name="candidato" value="${candidato.id}" class="mr-4 w-4 h-4 text-green-600 dark:text-blue-600 focus:ring-green-500 dark:focus:ring-blue-500">
+            <div class="flex items-center flex-1">
+              <span class="text-3xl mr-4">${candidato.avatar}</span>
+              <div>
+                <div class="font-medium text-slate-900 dark:text-slate-100">${candidato.nombre}</div>
+                <div class="text-sm text-slate-600 dark:text-slate-300">${candidato.facultad}</div>
+              </div>
+            </div>
+          </label>
+        `).join('');
+
+        this.elementos.opcionesVoto.innerHTML = html;
+      },
+
+      // Renderizar resultados
+      renderizarResultados() {
+        if (!this.elementos.resultadosContainer || !this.elementos.totalVotos) return;
+
+        const stats = BusinessLogic.obtenerEstadisticas();
+        this.elementos.totalVotos.textContent = stats.totalVotos;
+
+        const html = stats.candidatos.map((candidato, index) => `
+          <div class="mb-6 ${index === 0 && candidato.votos > 0 ? 'ring-2 ring-green-400 dark:ring-blue-400 ring-opacity-50 rounded-lg p-4 bg-green-50 dark:bg-blue-900/10' : ''}">
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center">
+                <span class="text-2xl mr-3">${candidato.avatar}</span>
+                <div>
+                  <div class="font-medium text-slate-900 dark:text-slate-100">${candidato.nombre}</div>
+                  <div class="text-sm text-slate-600 dark:text-slate-300">${candidato.facultad}</div>
+                </div>
+                ${index === 0 && candidato.votos > 0 ? '<span class="ml-2 text-xs bg-green-400 dark:bg-blue-400 text-green-900 dark:text-blue-900 px-2 py-1 rounded-full font-medium">Líder</span>' : ''}
+              </div>
+              <div class="text-right">
+                <div class="font-semibold text-lg">${candidato.votos}</div>
+                <div class="text-sm text-slate-600 dark:text-slate-300">${candidato.porcentaje}%</div>
+              </div>
+            </div>
+            <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-4 overflow-hidden">
+              <div class="bg-gradient-to-r from-green-500 to-green-600 dark:from-blue-500 dark:to-blue-600 h-4 rounded-full transition-all duration-700 ease-out" 
+                   style="width: ${candidato.porcentaje}%">
+              </div>
+            </div>
+          </div>
+        `).join('');
+
+        this.elementos.resultadosContainer.innerHTML = html;
+      },
+
+      // Mostrar mensaje
+      mostrarMensaje(elemento, mensaje, tipo = 'info') {
+        if (!this.elementos[elemento]) return;
+
+        const clases = {
+          success: 'text-green-600 dark:text-blue-400',
+          error: 'text-red-600 dark:text-red-400',
+          info: 'text-slate-600 dark:text-slate-400'
+        };
+
+        this.elementos[elemento].innerHTML = `<span class="${clases[tipo]}">${mensaje}</span>`;
+      },
+
+      // Actualizar tiempo restante
+      actualizarTiempo() {
+        if (!this.elementos.tiempoRestante) return;
+
+        const fechaCierre = new Date('2025-09-30T18:00:00');
+        const ahora = new Date();
+        const diferencia = fechaCierre - ahora;
+
+        if (diferencia > 0) {
+          const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+          const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+          
+          this.elementos.tiempoRestante.textContent = `${dias}d ${horas}h ${minutos}m restantes`;
+        } else {
+          this.elementos.tiempoRestante.textContent = 'Votaciones cerradas';
+          this.elementos.tiempoRestante.classList.add('text-red-600', 'font-semibold');
+        }
+      },
+
+      // Mostrar formulario de votación
+      mostrarFormularioVotacion() {
+        if (this.elementos.identificacionForm) {
+          this.elementos.identificacionForm.classList.add('hidden');
+        }
+        if (this.elementos.votacionForm) {
+          this.elementos.votacionForm.classList.remove('hidden');
+        }
+        this.renderizarOpcionesVoto();
+      },
+
+      // Mostrar formulario de identificación
+      mostrarFormularioIdentificacion() {
+        if (this.elementos.identificacionForm) {
+          this.elementos.identificacionForm.classList.remove('hidden');
+        }
+        if (this.elementos.votacionForm) {
+          this.elementos.votacionForm.classList.add('hidden');
+        }
+      },
+
+      // Mostrar modal de confirmación
+      mostrarModal(nombreCandidato) {
+        if (this.elementos.candidatoSeleccionado) {
+          this.elementos.candidatoSeleccionado.textContent = nombreCandidato;
+        }
+        if (this.elementos.modalConfirmacion) {
+          this.elementos.modalConfirmacion.classList.remove('hidden');
+        }
+      },
+
+      // Ocultar modal
+      ocultarModal() {
+        if (this.elementos.modalConfirmacion) {
+          this.elementos.modalConfirmacion.classList.add('hidden');
+        }
+      },
+
+      // Mostrar éxito de voto
+      mostrarVotoExitoso() {
+        if (this.elementos.votacionForm) {
+          this.elementos.votacionForm.innerHTML = `
+            <div class="text-center py-12">
+              <div class="text-6xl mb-4">✅</div>
+              <h3 class="text-2xl font-semibold text-green-600 dark:text-blue-400 mb-4">¡Voto Registrado!</h3>
+              <p class="text-slate-600 dark:text-slate-300 mb-6">Su voto ha sido procesado correctamente.</p>
+              <div class="bg-green-50 dark:bg-blue-900/20 border border-green-200 dark:border-blue-800 rounded-lg p-4">
+                <p class="text-sm text-green-800 dark:text-blue-200">
+                  <strong>Confirmación:</strong> ${new Date().toLocaleString('es-CO')}
+                </p>
+              </div>
+            </div>
+          `;
+        }
+      },
+
+      // Mostrar ya votó
+      mostrarYaVoto() {
+        if (this.elementos.identificacionForm) {
+          this.elementos.identificacionForm.innerHTML = `
+            <div class="text-center py-12">
+              <div class="text-6xl mb-4">✅</div>
+              <h3 class="text-2xl font-semibold text-green-600 dark:text-blue-400 mb-4">Ya ha votado</h3>
+              <p class="text-slate-600 dark:text-slate-300">Su voto ya fue registrado en el sistema.</p>
+            </div>
+          `;
+        }
+      }
+    };
+
+    // ===========================================================================================
+    // CAPA DE CONTROLADORES (CONTROLLER LAYER)
+    // ===========================================================================================
+
+    const Controller = {
+      usuarioActual: null,
+
+      // Inicializar sistema
+      init() {
+        console.log('🚀 Inicializando SVES...');
+        
+        // Inicializar UI
+        UI.init();
+        
+        // Cargar contenido inicial
+        this.cargarDatos();
+        
+        // Configurar eventos
+        this.configurarEventos();
+        
+        // Verificar estado
+        this.verificarEstado();
+        
+        // Actualizar tiempo
+        this.actualizarTiempoPeriodicamente();
+        
+        console.log('✅ SVES inicializado correctamente');
+      },
+
+      // Cargar datos
+      cargarDatos() {
+        UI.renderizarCandidatos();
+        UI.renderizarResultados();
+        UI.actualizarTiempo();
+      },
+
+      // Configurar eventos
+      configurarEventos() {
+        // Botón de tema
+        const themeBtn = document.getElementById('themeBtn');
+        if (themeBtn) {
+          themeBtn.addEventListener('click', this.alternarTema);
+        }
+
+        // Formulario de identificación
+        const formIdentificacion = document.getElementById('formIdentificacion');
+        if (formIdentificacion) {
+          formIdentificacion.addEventListener('submit', (e) => this.manejarIdentificacion(e));
+        }
+
+        // Formulario de votación
+        const formVotacion = document.getElementById('formVotacion');
+        if (formVotacion) {
+          formVotacion.addEventListener('submit', (e) => this.manejarVotacion(e));
+        }
+
+        // Botones del modal
+        const confirmarBtn = document.getElementById('confirmarVotoFinal');
+        const cancelarBtn = document.getElementById('cancelarVotoFinal');
+        const cancelarVoto = document.getElementById('cancelarVoto');
+
+        if (confirmarBtn) {
+          confirmarBtn.addEventListener('click', () => this.confirmarVoto());
+        }
+        if (cancelarBtn) {
+          cancelarBtn.addEventListener('click', () => UI.ocultarModal());
+        }
+        if (cancelarVoto) {
+          cancelarVoto.addEventListener('click', () => this.cancelarProceso());
+        }
+      },
+
+      // Verificar estado inicial
+      verificarEstado() {
+        // Aplicar tema guardado
+        const temaOscuro = localStorage.getItem('sves_tema_oscuro') === 'true';
+        if (temaOscuro) {
+          document.documentElement.classList.add('dark');
+        }
+      },
+
+      // Manejar identificación
+      manejarIdentificacion(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(e.target);
+        const codigo = formData.get('codigo').trim();
+        const facultad = formData.get('facultad');
+
+        // Validaciones básicas
+        if (!BusinessLogic.validarCodigo(codigo)) {
+          UI.mostrarMensaje('statusIdentificacion', '❌ Código debe tener 10 dígitos', 'error');
+          return;
+        }
+
+        if (!BusinessLogic.validarFacultad(facultad)) {
+          UI.mostrarMensaje('statusIdentificacion', '❌ Seleccione una facultad válida', 'error');
+          return;
+        }
+
+        if (DataLayer.yaVoto(codigo)) {
+          UI.mostrarMensaje('statusIdentificacion', '❌ Este código ya votó anteriormente', 'error');
+          return;
+        }
+
+        // Éxito
+        this.usuarioActual = { codigo, facultad };
+        UI.mostrarMensaje('statusIdentificacion', '✅ Credenciales validadas', 'success');
+        
+        setTimeout(() => {
+          UI.mostrarFormularioVotacion();
+        }, 1000);
+      },
+
+      // Manejar votación
+      manejarVotacion(e) {
+        e.preventDefault();
+        
+        const candidatoSeleccionado = document.querySelector('input[name="candidato"]:checked');
+        
+        if (!candidatoSeleccionado) {
+          UI.mostrarMensaje('statusVotacion', '❌ Debe seleccionar un candidato', 'error');
+          return;
+        }
+
+        const candidato = BusinessLogic.obtenerCandidato(candidatoSeleccionado.value);
+        if (candidato) {
+          UI.mostrarModal(candidato.nombre);
+        }
+      },
+
+      // Confirmar voto
+      confirmarVoto() {
+        const candidatoSeleccionado = document.querySelector('input[name="candidato"]:checked');
+        
+        if (!candidatoSeleccionado || !this.usuarioActual) {
+          UI.ocultarModal();
+          return;
+        }
+
+        const resultado = BusinessLogic.procesarVoto(
+          candidatoSeleccionado.value,
+          this.usuarioActual.codigo,
+          this.usuarioActual.facultad
+        );
+
+        UI.ocultarModal();
+
+        if (resultado.exito) {
+          UI.mostrarVotoExitoso();
+          UI.renderizarResultados();
+          console.log('✅ Voto registrado:', resultado.voto);
+        } else {
+          UI.mostrarMensaje('statusVotacion', `❌ ${resultado.mensaje}`, 'error');
+        }
+      },
+
+      // Cancelar proceso
+      cancelarProceso() {
+        this.usuarioActual = null;
+        UI.mostrarFormularioIdentificacion();
+        
+        // Limpiar formularios
+        const forms = document.querySelectorAll('form');
+        forms.forEach(form => form.reset());
+        
+        UI.mostrarMensaje('statusIdentificacion', '', 'info');
+        UI.mostrarMensaje('statusVotacion', '', 'info');
+      },
+
+      // Alternar tema
+      alternarTema() {
+        document.documentElement.classList.toggle('dark');
+        const esTemaOscuro = document.documentElement.classList.contains('dark');
+        localStorage.setItem('sves_tema_oscuro', esTemaOscuro.toString());
+      },
+
+      // Actualizar tiempo periódicamente
+      actualizarTiempoPeriodicamente() {
+        setInterval(() => {
+          UI.actualizarTiempo();
+          UI.renderizarResultados(); // Actualizar resultados también
+        }, 60000); // Cada minuto
+      }
+    };
+
+    // ===========================================================================================
+    // INICIALIZACIÓN DEL SISTEMA
+    // ===========================================================================================
+
+    // Inicializar cuando el DOM esté listo
+    document.addEventListener('DOMContentLoaded', function() {
+      Controller.init();
     });
 
+    // ===========================================================================================
+    // FUNCIONES ADMINISTRATIVAS
+    // ===========================================================================================
+
+    window.SVES_Admin = {
+      reiniciar() {
+        if (confirm('¿Reiniciar todo el sistema?')) {
+          DataLayer.limpiarSistema();
+          location.reload();
+        }
+      },
+
+      exportar() {
+        const stats = BusinessLogic.obtenerEstadisticas();
+        const data = {
+          timestamp: new Date().toISOString(),
+          ...stats,
+          votos: DataLayer.obtenerVotos()
+        };
+        
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `sves_resultados_${new Date().toISOString().split('T')[0]}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+      },
+
+      stats() {
+        console.table(BusinessLogic.obtenerEstadisticas());
+      }
+    };
+
+    console.log(`
+🗳️ SISTEMA DE VOTACIÓN ELECTRÓNICA SEGURA (SVES)
+   Universidad Santo Tomás - Tunja
+   
+📊 Funciones Admin:
+   • SVES_Admin.reiniciar() - Reiniciar sistema
+   • SVES_Admin.exportar() - Exportar resultados
+   • SVES_Admin.stats() - Ver estadísticas
+   
+✅ Sistema inicializado correctamente
+`);
   </script>
-
 </body>
-
 </html>
