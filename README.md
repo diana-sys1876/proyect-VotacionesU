@@ -49,3 +49,4 @@ Para sitios estáticos **no es necesario**. Pero si quieres, crea `.github/workf
 - Agrega tus secciones y CSS si lo deseas.
 - El formulario es solo demo (no envía a backend). 
 - Si quieres enviar, usa un servicio como Netlify Forms o un backend propio.
+
