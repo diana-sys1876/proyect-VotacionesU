@@ -1,896 +1,317 @@
 <!DOCTYPE html>
-<html lang="es" class="">
+<html lang="es" class="dark">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SVES - Sistema de Votación Electrónica Segura | USTA Tunja</title>
-
-  <!-- Tailwind CSS Framework via CDN -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SVES - Sistema de Votación Electrónica Segura</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Configuración Tailwind para modo oscuro -->
-  <script>
-    tailwind.config = {
-      darkMode: 'class'
-    }
-  </script>
-
-  <meta name="description" content="Sistema de Votación Electrónica Segura (SVES) - Universidad Santo Tomás Tunja. Arquitectura en capas con principios de microservicios." />
 </head>
-<body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100">
-  
-  <!-- =========================== CAPA DE PRESENTACIÓN =========================== -->
-  <!-- Header Navigation Component -->
-  <nav class="sticky top-0 bg-white/90 dark:bg-slate-900/80 backdrop-blur border-b border-slate-200 dark:border-slate-700 z-50">
-    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <span class="text-2xl">🗳️</span>
-        <div>
-          <span class="font-semibold text-lg">SVES</span>
-          <span class="hidden md:inline text-sm text-slate-600 dark:text-slate-400 ml-2">Universidad Santo Tomás</span>
-        </div>
-      </div>
-      <div class="flex items-center gap-3">
-        <span class="text-sm text-slate-600 dark:text-slate-400" id="tiempoRestante">Cargando...</span>
-        <button id="themeBtn" 
-                class="text-sm px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-          🌙 Tema
-        </button>
-      </div>
-    </div>
-  </nav>
+<body class="bg-gray-100 dark:bg-slate-900 text-gray-900 dark:text-gray-100 flex flex-col min-h-screen">
 
-  <!-- Hero Section Component -->
-  <header class="bg-gradient-to-br from-green-400 to-green-600 text-white dark:from-blue-500 dark:to-blue-700">
-    <div class="max-w-6xl mx-auto px-4 py-16">
-      <div class="text-center mb-8">
-        <h1 class="text-3xl md:text-5xl font-bold mb-4">Sistema de Votación Electrónica Segura</h1>
-        <p class="text-xl md:text-2xl mb-2">SVES - USTA Tunja</p>
-        <p class="mt-3 text-green-100/90 max-w-3xl mx-auto">
-          Implementación de arquitectura en capas con principios de microservicios para garantizar 
-          seguridad, escalabilidad y mantenibilidad en el proceso electoral estudiantil.
-        </p>
-      </div>
-      
-      <!-- Call to Action Buttons -->
-      <div class="flex flex-wrap justify-center gap-4 mt-8">
-        <a href="#candidatos" 
-           class="inline-block bg-white text-green-700 dark:bg-slate-100 dark:text-blue-900 font-medium px-6 py-3 rounded-xl shadow hover:shadow-md transition-all duration-200">
-           Ver Candidatos
-        </a>
-        <a href="#votar" 
-           class="inline-block bg-green-500 hover:bg-green-400 dark:bg-blue-500 dark:hover:bg-blue-400 text-white font-medium px-6 py-3 rounded-xl shadow hover:shadow-md transition-all duration-200">
-           🗳️ Ejercer Voto
-        </a>
-        <a href="#resultados" 
-           class="inline-block border-2 border-white hover:bg-white hover:text-green-700 dark:hover:text-blue-700 text-white font-medium px-6 py-3 rounded-xl transition-all duration-200">
-           📊 Resultados
-        </a>
-      </div>
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-green-400 to-green-600 text-white py-12 text-center shadow-md">
+    <h1 class="text-4xl font-bold">Sistema de Votación Electrónica Segura</h1>
+    <p class="text-lg mt-2">SVES - USTA Tunja</p>
+    <p class="text-sm opacity-90">Implementación de arquitectura en capas con principios de microservicios</p>
+
+    <!-- Call to Action Buttons -->
+    <div class="flex flex-wrap justify-center gap-4 mt-8">
+      <a href="#candidatos" 
+         class="inline-block bg-white text-green-700 dark:bg-slate-100 dark:text-blue-900 font-medium px-6 py-3 rounded-xl shadow hover:opacity-80 hover:shadow-md transition-all duration-200">
+         Ver Candidatos
+      </a>
+      <a href="#votar" 
+         class="inline-block bg-green-500 hover:bg-green-400 dark:bg-blue-500 dark:hover:bg-blue-400 text-white font-medium px-6 py-3 rounded-xl shadow hover:opacity-80 hover:shadow-md transition-all duration-200">
+         🗳️ Ejercer Voto
+      </a>
+      <a href="#resultados" 
+         class="inline-block border-2 border-white hover:bg-white hover:text-green-700 dark:hover:text-blue-700 text-white font-medium px-6 py-3 rounded-xl hover:opacity-80 transition-all duration-200">
+         📊 Resultados
+      </a>
     </div>
   </header>
 
-  <!-- System Status Banner -->
-  <section class="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 p-4 mb-8">
-    <div class="max-w-6xl mx-auto">
-      <div class="flex items-center">
-        <span class="text-2xl mr-3">⚠️</span>
-        <div>
-          <h3 class="font-semibold text-yellow-800 dark:text-yellow-200">Estado del Sistema Electoral</h3>
-          <p class="text-yellow-700 dark:text-yellow-300 text-sm mt-1">
-            <strong>Período de votación:</strong> Hasta el 30 de Septiembre, 2025 a las 18:00. 
-            <span class="block mt-1">Sistema operativo bajo arquitectura segura de microservicios.</span>
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- Main -->
+  <main class="max-w-5xl mx-auto px-6 py-12 space-y-16 flex-grow">
+    
+    <!-- Sección de candidatos -->
+    <section id="candidatos">
+      <h2 class="text-2xl font-semibold mb-6">Candidatos</h2>
+      <div id="listaCandidatos" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </section>
 
-  <!-- =========================== MÓDULO GESTIÓN DE CANDIDATOS =========================== -->
-  <section id="candidatos" class="max-w-6xl mx-auto px-4 py-12">
-    <div class="text-center mb-8">
-      <h2 class="text-2xl md:text-3xl font-bold mb-4">Registro de Candidatos</h2>
-      <p class="text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-        Candidatos registrados en el sistema electoral siguiendo protocolos de validación académica
-      </p>
-    </div>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" id="candidatosContainer">
-      <!-- Contenido generado dinámicamente por la capa de servicios -->
-    </div>
-  </section>
-
-  <!-- =========================== MÓDULO PROCESO DE VOTACIÓN =========================== -->
-  <section id="votar" class="bg-green-50 dark:bg-blue-900/10 py-12">
-    <div class="max-w-4xl mx-auto px-4">
-      <h2 class="text-2xl md:text-3xl font-bold text-center mb-8">Proceso de Votación Segura</h2>
-      
-      <!-- Formulario de Autenticación (Capa de Seguridad) -->
-      <div id="identificacionForm" class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700 mb-6">
-        <h3 class="font-semibold text-lg mb-4 flex items-center">
-          <span class="mr-2">🔐</span>
-          Autenticación del Votante
-        </h3>
-        <form id="formIdentificacion" class="grid gap-4">
-          <div>
-            <label for="codigo" class="block text-sm font-medium mb-2">Código Estudiantil</label>
-            <input id="codigo" name="codigo" type="text" required 
-                   placeholder="Ejemplo: 2020123456" maxlength="10"
-                   class="w-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-400 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 dark:focus:ring-blue-500 focus:border-transparent" />
-            <small class="text-slate-500 dark:text-slate-400">Ingrese su código estudiantil de 10 dígitos</small>
-          </div>
-          <div>
-            <label for="facultad" class="block text-sm font-medium mb-2">Facultad de Adscripción</label>
-            <select id="facultad" name="facultad" required
-                    class="w-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 dark:focus:ring-blue-500 focus:border-transparent">
-              <option value="">Seleccione su facultad</option>
-              <option value="ingenieria">Facultad de Ingeniería</option>
-              <option value="derecho">Facultad de Derecho</option>
-              <option value="administracion">Facultad de Administración de Empresas</option>
-              <option value="psicologia">Facultad de Psicología</option>
-              <option value="comunicacion">Facultad de Comunicación Social</option>
-              <option value="contaduria">Facultad de Contaduría Pública</option>
-            </select>
-          </div>
-          <button type="submit" class="bg-green-600 hover:bg-green-700 dark:bg-blue-600 dark:hover:bg-blue-700 text-white rounded-lg px-4 py-2 w-fit transition-colors font-medium">
-            Validar Credenciales
+    <!-- Sección de votación -->
+    <section id="votar">
+      <h2 class="text-2xl font-semibold mb-6">Ejercer Voto</h2>
+      <div id="identificacionForm">
+        <form id="formIdentificacion" class="space-y-4">
+          <input type="text" id="codigo" placeholder="Código estudiantil" 
+                 class="w-full px-4 py-2 border rounded-md dark:bg-slate-800">
+          <select id="facultad" class="w-full px-4 py-2 border rounded-md dark:bg-slate-800">
+            <option value="">Seleccione facultad</option>
+            <option value="Ingeniería">Ingeniería</option>
+            <option value="Derecho">Derecho</option>
+            <option value="Medicina">Medicina</option>
+          </select>
+          <button type="submit" class="bg-green-600 text-white px-6 py-2 rounded hover:opacity-80">
+            Validar Identificación
           </button>
         </form>
-        <div id="statusIdentificacion" class="mt-3 text-sm"></div>
+        <div id="statusIdentificacion" class="mt-4 text-sm"></div>
       </div>
 
-      <!-- Interfaz de Votación (Oculta por defecto) -->
-      <div id="votacionForm" class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700 hidden">
-        <h3 class="font-semibold text-lg mb-4 flex items-center">
-          <span class="mr-2">🗳️</span>
-          Selección de Candidato
-        </h3>
-        <form id="formVotacion">
-          <div id="opcionesVoto" class="space-y-4">
-            <!-- Opciones generadas dinámicamente -->
-          </div>
-          <div class="mt-6 flex gap-4">
-            <button type="submit" class="bg-green-600 hover:bg-green-700 dark:bg-blue-600 dark:hover:bg-blue-700 text-white rounded-lg px-6 py-2 transition-colors font-medium">
-              ✅ Confirmar Selección
-            </button>
-            <button type="button" id="cancelarVoto" class="bg-gray-500 hover:bg-gray-600 text-white rounded-lg px-6 py-2 transition-colors font-medium">
-              ❌ Cancelar Proceso
-            </button>
-          </div>
-        </form>
-        <div id="statusVotacion" class="mt-3 text-sm"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- =========================== MÓDULO REPORTES Y RESULTADOS =========================== -->
-  <section id="resultados" class="max-w-6xl mx-auto px-4 py-12">
-    <h2 class="text-2xl md:text-3xl font-bold text-center mb-8">Panel de Resultados</h2>
-    <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
-      <div id="resultadosContainer">
-        <!-- Resultados generados por el servicio de reportes -->
-      </div>
-      <div class="mt-6 text-center border-t border-slate-200 dark:border-slate-700 pt-6">
-        <p class="text-sm text-slate-600 dark:text-slate-400">
-          <strong>Votos registrados:</strong> <span id="totalVotos" class="font-semibold">0</span>
-        </p>
-        <p class="text-xs text-slate-500 dark:text-slate-500 mt-2">
-          Sistema de conteo en tiempo real con verificación de integridad
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- =========================== INFORMACIÓN DEL PROYECTO =========================== -->
-  <section class="bg-slate-100 dark:bg-slate-800 py-12 mt-16">
-    <div class="max-w-4xl mx-auto px-4 text-center">
-      <h3 class="text-xl font-semibold mb-4">Proyecto Académico - Gerencia de Software 6</h3>
-      <div class="grid md:grid-cols-2 gap-6 text-sm">
-        <div>
-          <h4 class="font-medium mb-2">Equipo de Desarrollo</h4>
-          <ul class="text-slate-600 dark:text-slate-300 space-y-1">
-            <li>Diana Marcela Ayala Ortiz</li>
-            <li>Maryori Brigith Barrera Ascanio</li>
-            <li>Juan Sebastian Bonilla Leon</li>
-            <li>Johan Sebastián Jurado Hernández</li>
-            <li>Samuel Rodelfo Diaz Licht</li>
-          </ul>
+      <div id="votacionForm" class="hidden mt-8">
+        <form id="formVotacion" class="space-y-4"></form>
+        <div class="flex gap-4 mt-4">
+          <button type="submit" form="formVotacion" 
+                  class="bg-green-600 text-white px-6 py-2 rounded hover:opacity-80">
+            Confirmar Voto
+          </button>
+          <button type="button" id="cancelarVoto" 
+                  class="bg-red-500 text-white px-6 py-2 rounded hover:opacity-80">
+            Cancelar
+          </button>
         </div>
-        <div>
-          <h4 class="font-medium mb-2">Especificaciones Técnicas</h4>
-          <ul class="text-slate-600 dark:text-slate-300 space-y-1">
-            <li>Arquitectura: N-Tier + Microservicios</li>
-            <li>Despliegue: Blue-Green (Netlify)</li>
-            <li>Seguridad: OWASP Compliance</li>
-            <li>CI/CD: Integración Continua</li>
-          </ul>
-        </div>
+        <div id="statusVotacion" class="mt-4 text-sm"></div>
       </div>
-    </div>
-  </section>
+    </section>
+
+    <!-- Resultados -->
+    <section id="resultados">
+      <h2 class="text-2xl font-semibold mb-6">Resultados</h2>
+      <div id="contenedorResultados" class="space-y-4"></div>
+    </section>
+
+  </main>
 
   <!-- Footer -->
-  <footer class="border-t border-slate-200 dark:border-slate-700">
-    <div class="max-w-6xl mx-auto px-4 py-6 text-sm text-slate-500 dark:text-slate-400">
-      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <div>
-          <span>&copy; <span id="year"></span> SVES - Universidad Santo Tomás Tunja</span>
-          <span class="block md:inline md:ml-2">Docente: Sergio Arley Puerto Moreno</span>
-        </div>
-        <div class="flex gap-4 text-xs">
-          <span class="flex items-center gap-1">🔒 Seguro</span>
-          <span class="flex items-center gap-1">📱 Responsive</span>
-          <span class="flex items-center gap-1">⚡ Optimizado</span>
-        </div>
-      </div>
-    </div>
+  <footer class="bg-gradient-to-r from-green-400 to-green-600 text-white py-6 mt-auto text-center">
+    <p class="text-sm">© 2025 SVES - Sistema de Votación Electrónica Segura | USTA Tunja</p>
+    <p class="text-xs opacity-80">Desarrollado con ❤️ usando HTML, Tailwind y JavaScript</p>
   </footer>
 
-  <!-- =========================== MODAL DE CONFIRMACIÓN =========================== -->
-  <div id="modalConfirmacion" class="fixed inset-0 bg-black/50 flex items-center justify-center p-4 hidden z-50">
-    <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 max-w-md w-full shadow-xl">
-      <h3 class="font-semibold text-lg mb-4 flex items-center">
-        <span class="mr-2">🗳️</span>
-        Confirmación de Voto
-      </h3>
-      <p class="text-slate-600 dark:text-slate-300 mb-6">
-        ¿Confirma su voto por <span id="candidatoSeleccionado" class="font-semibold text-green-600 dark:text-blue-400"></span>?
-        <br><br>
-        <strong class="text-red-600 dark:text-red-400">⚠️ Esta acción es irreversible</strong>
-      </p>
-      <div class="flex gap-3">
-        <button id="confirmarVotoFinal" class="bg-green-600 hover:bg-green-700 dark:bg-blue-600 dark:hover:bg-blue-700 text-white rounded-lg px-4 py-2 transition-colors font-medium">
-          Confirmar Voto
-        </button>
-        <button id="cancelarVotoFinal" class="bg-gray-500 hover:bg-gray-600 text-white rounded-lg px-4 py-2 transition-colors font-medium">
-          Cancelar
-        </button>
+  <!-- Modal confirmación -->
+  <div id="modalConfirmacion" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center">
+    <div class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg max-w-md w-full">
+      <h3 class="text-xl font-semibold mb-4">Confirmar Voto</h3>
+      <p>¿Está seguro que desea votar por <span id="candidatoSeleccionado" class="font-bold"></span>?</p>
+      <div class="flex justify-end gap-4 mt-6">
+        <button id="cancelarVotoFinal" class="bg-gray-500 text-white px-4 py-2 rounded">Cancelar</button>
+        <button id="confirmarVotoFinal" class="bg-green-600 text-white px-4 py-2 rounded">Confirmar</button>
       </div>
     </div>
   </div>
 
-  <!-- =========================== JAVASCRIPT COMPLETO EMBEBIDO =========================== -->
   <script>
-    /**
-     * ===========================================================================================
-     * SISTEMA DE VOTACIÓN ELECTRÓNICA SEGURA (SVES)
-     * Universidad Santo Tomás - Tunja
-     * 
-     * Arquitectura: N-Tier simplificada pero funcional
-     * Equipo de Desarrollo: Gerencia de Software 6 - 2025
-     * ===========================================================================================
-     */
-
-    'use strict';
-
     // ===========================================================================================
-    // CAPA DE DATOS (DATA ACCESS LAYER)
+    // CAPA DE DATOS
     // ===========================================================================================
-
     const DataLayer = {
-      // Claves de almacenamiento
-      keys: {
-        votos: 'sves_votos_2025',
-        sesion: 'sves_sesion_usuario'
-      },
-
-      // Obtener votos almacenados
-      obtenerVotos() {
-        try {
-          const votos = localStorage.getItem(this.keys.votos);
-          return votos ? JSON.parse(votos) : [];
-        } catch (error) {
-          console.error('Error obteniendo votos:', error);
-          return [];
-        }
-      },
-
-      // Guardar nuevo voto
-      guardarVoto(voto) {
-        try {
-          const votos = this.obtenerVotos();
-          votos.push({
-            ...voto,
-            id: Date.now(),
-            timestamp: new Date().toISOString()
-          });
-          localStorage.setItem(this.keys.votos, JSON.stringify(votos));
-          return true;
-        } catch (error) {
-          console.error('Error guardando voto:', error);
-          return false;
-        }
-      },
-
-      // Verificar si ya votó
-      yaVoto(codigo) {
-        const votos = this.obtenerVotos();
-        return votos.some(voto => voto.codigo === codigo);
-      },
-
-      // Limpiar sistema (solo admin)
-      limpiarSistema() {
-        localStorage.removeItem(this.keys.votos);
-        localStorage.removeItem(this.keys.sesion);
-      }
-    };
-
-    // ===========================================================================================
-    // CAPA DE LÓGICA DE NEGOCIO (BUSINESS LOGIC LAYER)
-    // ===========================================================================================
-
-    const BusinessLogic = {
-      // Candidatos registrados en el sistema
       candidatos: [
-        {
-          id: 1,
-          nombre: "Ana María González Rodríguez",
-          facultad: "Facultad de Ingeniería",
-          propuestas: [
-            "Modernización de laboratorios de sistemas",
-            "Programa de becas de excelencia académica",
-            "Espacios de estudio colaborativo 24/7",
-            "Red de mentorías técnicas estudiantiles"
-          ],
-          avatar: "👩‍🎓"
-        },
-        {
-          id: 2,
-          nombre: "Carlos Eduardo Ramírez Pérez",
-          facultad: "Facultad de Derecho",
-          propuestas: [
-            "Consultorio jurídico gratuito para estudiantes",
-            "Defensoría estudiantil independiente",
-            "Transparencia en procesos administrativos",
-            "Mediación en conflictos académicos"
-          ],
-          avatar: "👨‍⚖️"
-        },
-        {
-          id: 3,
-          nombre: "María José Torres Vargas",
-          facultad: "Facultad de Psicología",
-          propuestas: [
-            "Centro de bienestar mental estudiantil",
-            "Programa de apoyo psicológico integral",
-            "Actividades de integración y recreación",
-            "Red de apoyo emocional estudiantil"
-          ],
-          avatar: "👩‍⚕️"
-        },
-        {
-          id: 4,
-          nombre: "Diego Alejandro Suárez Mora",
-          facultad: "Facultad de Administración",
-          propuestas: [
-            "Incubadora de emprendimiento estudiantil",
-            "Bolsa de trabajo especializada",
-            "Red de networking empresarial",
-            "Programa de prácticas profesionales"
-          ],
-          avatar: "👨‍💼"
-        }
+        { id: 1, nombre: "Ana Pérez", facultad: "Ingeniería", votos: 0 },
+        { id: 2, nombre: "Luis Gómez", facultad: "Derecho", votos: 0 },
+        { id: 3, nombre: "María Rodríguez", facultad: "Medicina", votos: 0 }
       ],
+      votantes: JSON.parse(localStorage.getItem("votantes")) || [],
 
-      // Validar código estudiantil
-      validarCodigo(codigo) {
-        return /^\d{10}$/.test(codigo);
+      guardar() {
+        localStorage.setItem("votantes", JSON.stringify(this.votantes));
       },
 
-      // Validar facultad
-      validarFacultad(facultad) {
-        const facultadesValidas = ['ingenieria', 'derecho', 'administracion', 'psicologia', 'comunicacion', 'contaduria'];
-        return facultadesValidas.includes(facultad);
+      registrarVoto(codigo, facultad, candidatoId) {
+        if (this.votantes.find(v => v.codigo === codigo)) return false;
+        this.votantes.push({ codigo, facultad, candidatoId });
+        this.candidatos.find(c => c.id === candidatoId).votos++;
+        this.guardar();
+        return true;
       },
 
-      // Obtener candidato por ID
-      obtenerCandidato(id) {
-        return this.candidatos.find(c => c.id === parseInt(id));
-      },
-
-      // Procesar voto
-      procesarVoto(candidatoId, codigo, facultad) {
-        // Validaciones
-        if (!this.validarCodigo(codigo)) {
-          return { exito: false, mensaje: 'Código estudiantil inválido' };
-        }
-
-        if (!this.validarFacultad(facultad)) {
-          return { exito: false, mensaje: 'Facultad no válida' };
-        }
-
-        if (DataLayer.yaVoto(codigo)) {
-          return { exito: false, mensaje: 'Ya has votado anteriormente' };
-        }
-
-        const candidato = this.obtenerCandidato(candidatoId);
-        if (!candidato) {
-          return { exito: false, mensaje: 'Candidato no válido' };
-        }
-
-        // Guardar voto
-        const voto = {
-          candidatoId: candidatoId,
-          candidatoNombre: candidato.nombre,
-          codigo: codigo,
-          facultad: facultad
-        };
-
-        if (DataLayer.guardarVoto(voto)) {
-          return { exito: true, mensaje: 'Voto registrado exitosamente', voto: voto };
-        } else {
-          return { exito: false, mensaje: 'Error técnico al guardar voto' };
-        }
-      },
-
-      // Obtener estadísticas
-      obtenerEstadisticas() {
-        const votos = DataLayer.obtenerVotos();
-        const stats = this.candidatos.map(candidato => {
-          const votosCandidato = votos.filter(voto => voto.candidatoId === candidato.id).length;
-          return {
-            ...candidato,
-            votos: votosCandidato,
-            porcentaje: votos.length > 0 ? ((votosCandidato / votos.length) * 100).toFixed(1) : 0
-          };
-        });
-
-        return {
-          candidatos: stats.sort((a, b) => b.votos - a.votos),
-          totalVotos: votos.length
-        };
+      yaVoto(codigo) {
+        return this.votantes.some(v => v.codigo === codigo);
       }
     };
 
     // ===========================================================================================
-    // CAPA DE PRESENTACIÓN (PRESENTATION LAYER)
+    // CAPA DE LÓGICA DE NEGOCIO
     // ===========================================================================================
+    const BusinessLogic = {
+      validarCodigo(codigo) {
+        return /^[0-9]{10}$/.test(codigo);
+      },
 
+      validarFacultad(facultad) {
+        return ["Ingeniería", "Derecho", "Medicina"].includes(facultad);
+      },
+
+      obtenerCandidato(id) {
+        return DataLayer.candidatos.find(c => c.id === parseInt(id));
+      },
+
+      procesarVoto(candidatoId, codigo, facultad) {
+        if (!this.validarCodigo(codigo)) return { exito: false, mensaje: "Código inválido" };
+        if (!this.validarFacultad(facultad)) return { exito: false, mensaje: "Facultad inválida" };
+        if (DataLayer.yaVoto(codigo)) return { exito: false, mensaje: "Ya has votado" };
+        const registrado = DataLayer.registrarVoto(codigo, facultad, candidatoId);
+        return registrado ? { exito: true, mensaje: "Voto registrado exitosamente" }
+                          : { exito: false, mensaje: "Error al registrar voto" };
+      }
+    };
+
+    // ===========================================================================================
+    // CAPA DE PRESENTACIÓN
+    // ===========================================================================================
     const UI = {
-      // Referencias a elementos DOM
-      elementos: {},
-
-      // Inicializar elementos
-      init() {
-        this.elementos = {
-          candidatosContainer: document.getElementById('candidatosContainer'),
-          opcionesVoto: document.getElementById('opcionesVoto'),
-          resultadosContainer: document.getElementById('resultadosContainer'),
-          totalVotos: document.getElementById('totalVotos'),
-          tiempoRestante: document.getElementById('tiempoRestante'),
-          year: document.getElementById('year'),
-          statusIdentificacion: document.getElementById('statusIdentificacion'),
-          statusVotacion: document.getElementById('statusVotacion'),
-          candidatoSeleccionado: document.getElementById('candidatoSeleccionado'),
-          modalConfirmacion: document.getElementById('modalConfirmacion'),
-          identificacionForm: document.getElementById('identificacionForm'),
-          votacionForm: document.getElementById('votacionForm')
-        };
-
-        // Establecer año
-        if (this.elementos.year) {
-          this.elementos.year.textContent = new Date().getFullYear();
-        }
+      elementos: {
+        listaCandidatos: document.getElementById("listaCandidatos"),
+        formVotacion: document.getElementById("formVotacion"),
+        votacionForm: document.getElementById("votacionForm"),
+        identificacionForm: document.getElementById("identificacionForm"),
+        contenedorResultados: document.getElementById("contenedorResultados"),
+        modalConfirmacion: document.getElementById("modalConfirmacion"),
+        candidatoSeleccionado: document.getElementById("candidatoSeleccionado"),
       },
 
-      // Renderizar candidatos
       renderizarCandidatos() {
-        if (!this.elementos.candidatosContainer) return;
-
-        const html = BusinessLogic.candidatos.map(candidato => `
-          <article class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700 hover:shadow-md transition-shadow">
-            <div class="text-center mb-4">
-              <div class="text-6xl mb-3">${candidato.avatar}</div>
-              <h3 class="font-semibold text-lg">${candidato.nombre}</h3>
-              <p class="text-sm text-slate-600 dark:text-slate-300">${candidato.facultad}</p>
-            </div>
-            <div class="space-y-2">
-              <h4 class="font-medium text-sm text-green-600 dark:text-blue-400">Propuestas:</h4>
-              <ul class="text-xs text-slate-600 dark:text-slate-300 space-y-1">
-                ${candidato.propuestas.map(propuesta => `<li class="flex items-start gap-2"><span class="text-green-500 dark:text-blue-500 mt-0.5">•</span>${propuesta}</li>`).join('')}
-              </ul>
-            </div>
-          </article>
-        `).join('');
-
-        this.elementos.candidatosContainer.innerHTML = html;
-      },
-
-      // Renderizar opciones de voto
-      renderizarOpcionesVoto() {
-        if (!this.elementos.opcionesVoto) return;
-
-        const html = BusinessLogic.candidatos.map(candidato => `
-          <label class="flex items-center p-4 border border-slate-200 dark:border-slate-600 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 cursor-pointer transition-colors">
-            <input type="radio" name="candidato" value="${candidato.id}" class="mr-4 w-4 h-4 text-green-600 dark:text-blue-600 focus:ring-green-500 dark:focus:ring-blue-500">
-            <div class="flex items-center flex-1">
-              <span class="text-3xl mr-4">${candidato.avatar}</span>
-              <div>
-                <div class="font-medium text-slate-900 dark:text-slate-100">${candidato.nombre}</div>
-                <div class="text-sm text-slate-600 dark:text-slate-300">${candidato.facultad}</div>
-              </div>
-            </div>
-          </label>
-        `).join('');
-
-        this.elementos.opcionesVoto.innerHTML = html;
-      },
-
-      // Renderizar resultados
-      renderizarResultados() {
-        if (!this.elementos.resultadosContainer || !this.elementos.totalVotos) return;
-
-        const stats = BusinessLogic.obtenerEstadisticas();
-        this.elementos.totalVotos.textContent = stats.totalVotos;
-
-        const html = stats.candidatos.map((candidato, index) => `
-          <div class="mb-6 ${index === 0 && candidato.votos > 0 ? 'ring-2 ring-green-400 dark:ring-blue-400 ring-opacity-50 rounded-lg p-4 bg-green-50 dark:bg-blue-900/10' : ''}">
-            <div class="flex items-center justify-between mb-3">
-              <div class="flex items-center">
-                <span class="text-2xl mr-3">${candidato.avatar}</span>
-                <div>
-                  <div class="font-medium text-slate-900 dark:text-slate-100">${candidato.nombre}</div>
-                  <div class="text-sm text-slate-600 dark:text-slate-300">${candidato.facultad}</div>
-                </div>
-                ${index === 0 && candidato.votos > 0 ? '<span class="ml-2 text-xs bg-green-400 dark:bg-blue-400 text-green-900 dark:text-blue-900 px-2 py-1 rounded-full font-medium">Líder</span>' : ''}
-              </div>
-              <div class="text-right">
-                <div class="font-semibold text-lg">${candidato.votos}</div>
-                <div class="text-sm text-slate-600 dark:text-slate-300">${candidato.porcentaje}%</div>
-              </div>
-            </div>
-            <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-4 overflow-hidden">
-              <div class="bg-gradient-to-r from-green-500 to-green-600 dark:from-blue-500 dark:to-blue-600 h-4 rounded-full transition-all duration-700 ease-out" 
-                   style="width: ${candidato.porcentaje}%">
-              </div>
-            </div>
+        this.elementos.listaCandidatos.innerHTML = DataLayer.candidatos.map(c => `
+          <div class="p-6 bg-white dark:bg-slate-800 rounded-xl shadow hover:shadow-lg transition">
+            <h3 class="text-lg font-semibold">${c.nombre}</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400">Facultad: ${c.facultad}</p>
           </div>
-        `).join('');
-
-        this.elementos.resultadosContainer.innerHTML = html;
+        `).join("");
       },
 
-      // Mostrar mensaje
-      mostrarMensaje(elemento, mensaje, tipo = 'info') {
-        if (!this.elementos[elemento]) return;
-
-        const clases = {
-          success: 'text-green-600 dark:text-blue-400',
-          error: 'text-red-600 dark:text-red-400',
-          info: 'text-slate-600 dark:text-slate-400'
-        };
-
-        this.elementos[elemento].innerHTML = `<span class="${clases[tipo]}">${mensaje}</span>`;
+      renderizarFormularioVotacion() {
+        this.elementos.formVotacion.innerHTML = DataLayer.candidatos.map(c => `
+          <label class="flex items-center gap-2 p-3 bg-white dark:bg-slate-800 rounded-lg shadow hover:shadow-md cursor-pointer">
+            <input type="radio" name="candidato" value="${c.id}">
+            <span>${c.nombre} (${c.facultad})</span>
+          </label>
+        `).join("");
       },
 
-      // Actualizar tiempo restante
-      actualizarTiempo() {
-        if (!this.elementos.tiempoRestante) return;
-
-        const fechaCierre = new Date('2025-09-30T18:00:00');
-        const ahora = new Date();
-        const diferencia = fechaCierre - ahora;
-
-        if (diferencia > 0) {
-          const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
-          const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-          const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
-          
-          this.elementos.tiempoRestante.textContent = `${dias}d ${horas}h ${minutos}m restantes`;
-        } else {
-          this.elementos.tiempoRestante.textContent = 'Votaciones cerradas';
-          this.elementos.tiempoRestante.classList.add('text-red-600', 'font-semibold');
-        }
+      renderizarResultados() {
+        const total = DataLayer.candidatos.reduce((acc, c) => acc + c.votos, 0);
+        this.elementos.contenedorResultados.innerHTML = DataLayer.candidatos.map(c => {
+          const porcentaje = total ? ((c.votos / total) * 100).toFixed(1) : 0;
+          return `
+            <div>
+              <div class="flex justify-between">
+                <span>${c.nombre}</span>
+                <span>${c.votos} votos (${porcentaje}%)</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-3 dark:bg-slate-700">
+                <div class="bg-green-500 h-3 rounded-full" style="width:${porcentaje}%"></div>
+              </div>
+            </div>
+          `;
+        }).join("");
       },
 
-      // Mostrar formulario de votación
       mostrarFormularioVotacion() {
-        if (this.elementos.identificacionForm) {
-          this.elementos.identificacionForm.classList.add('hidden');
-        }
-        if (this.elementos.votacionForm) {
-          this.elementos.votacionForm.classList.remove('hidden');
-        }
-        this.renderizarOpcionesVoto();
+        this.elementos.identificacionForm.classList.add("hidden");
+        this.elementos.votacionForm.classList.remove("hidden");
+        this.renderizarFormularioVotacion();
       },
 
-      // Mostrar formulario de identificación
       mostrarFormularioIdentificacion() {
-        if (this.elementos.identificacionForm) {
-          this.elementos.identificacionForm.classList.remove('hidden');
-        }
-        if (this.elementos.votacionForm) {
-          this.elementos.votacionForm.classList.add('hidden');
-        }
+        this.elementos.identificacionForm.classList.remove("hidden");
+        this.elementos.votacionForm.classList.add("hidden");
       },
 
-      // Mostrar modal de confirmación
-      mostrarModal(nombreCandidato) {
-        if (this.elementos.candidatoSeleccionado) {
-          this.elementos.candidatoSeleccionado.textContent = nombreCandidato;
-        }
-        if (this.elementos.modalConfirmacion) {
-          this.elementos.modalConfirmacion.classList.remove('hidden');
-        }
+      mostrarMensaje(idElemento, mensaje, tipo) {
+        const elemento = document.getElementById(idElemento);
+        const colores = { success: "text-green-600", error: "text-red-600", info: "text-blue-600" };
+        elemento.className = `${colores[tipo] || ""} text-sm`;
+        elemento.textContent = mensaje;
       },
 
-      // Ocultar modal
-      ocultarModal() {
-        if (this.elementos.modalConfirmacion) {
-          this.elementos.modalConfirmacion.classList.add('hidden');
-        }
+      abrirModalConfirmacion(nombre) {
+        this.elementos.candidatoSeleccionado.textContent = nombre;
+        this.elementos.modalConfirmacion.classList.remove("hidden");
+        this.elementos.modalConfirmacion.classList.add("flex");
       },
 
-      // Mostrar éxito de voto
+      cerrarModalConfirmacion() {
+        this.elementos.modalConfirmacion.classList.add("hidden");
+        this.elementos.modalConfirmacion.classList.remove("flex");
+      },
+
       mostrarVotoExitoso() {
         if (this.elementos.votacionForm) {
           this.elementos.votacionForm.innerHTML = `
             <div class="text-center py-12">
               <div class="text-6xl mb-4">✅</div>
-              <h3 class="text-2xl font-semibold text-green-600 dark:text-blue-400 mb-4">¡Voto Registrado!</h3>
-              <p class="text-slate-600 dark:text-slate-300 mb-6">Su voto ha sido procesado correctamente.</p>
-              <div class="bg-green-50 dark:bg-blue-900/20 border border-green-200 dark:border-blue-800 rounded-lg p-4">
-                <p class="text-sm text-green-800 dark:text-blue-200">
-                  <strong>Confirmación:</strong> ${new Date().toLocaleString('es-CO')}
-                </p>
-              </div>
+              <h3 class="text-xl font-semibold mb-2">¡Gracias por tu participación!</h3>
+              <p class="text-slate-600 dark:text-slate-300">Tu voto ha sido registrado de manera segura.</p>
             </div>
           `;
         }
-      },
-
-      // Mostrar ya votó
-      mostrarYaVoto() {
-        if (this.elementos.identificacionForm) {
-          this.elementos.identificacionForm.innerHTML = `
-            <div class="text-center py-12">
-              <div class="text-6xl mb-4">✅</div>
-              <h3 class="text-2xl font-semibold text-green-600 dark:text-blue-400 mb-4">Ya ha votado</h3>
-              <p class="text-slate-600 dark:text-slate-300">Su voto ya fue registrado en el sistema.</p>
-            </div>
-          `;
-        }
+        this.renderizarResultados();
       }
     };
 
     // ===========================================================================================
-    // CAPA DE CONTROLADORES (CONTROLLER LAYER)
+    // CONTROLADORES
     // ===========================================================================================
+    document.addEventListener("DOMContentLoaded", () => {
+      UI.renderizarCandidatos();
+      UI.renderizarResultados();
 
-    const Controller = {
-      usuarioActual: null,
-
-      // Inicializar sistema
-      init() {
-        console.log('🚀 Inicializando SVES...');
-        
-        // Inicializar UI
-        UI.init();
-        
-        // Cargar contenido inicial
-        this.cargarDatos();
-        
-        // Configurar eventos
-        this.configurarEventos();
-        
-        // Verificar estado
-        this.verificarEstado();
-        
-        // Actualizar tiempo
-        this.actualizarTiempoPeriodicamente();
-        
-        console.log('✅ SVES inicializado correctamente');
-      },
-
-      // Cargar datos
-      cargarDatos() {
-        UI.renderizarCandidatos();
-        UI.renderizarResultados();
-        UI.actualizarTiempo();
-      },
-
-      // Configurar eventos
-      configurarEventos() {
-        // Botón de tema
-        const themeBtn = document.getElementById('themeBtn');
-        if (themeBtn) {
-          themeBtn.addEventListener('click', this.alternarTema);
-        }
-
-        // Formulario de identificación
-        const formIdentificacion = document.getElementById('formIdentificacion');
-        if (formIdentificacion) {
-          formIdentificacion.addEventListener('submit', (e) => this.manejarIdentificacion(e));
-        }
-
-        // Formulario de votación
-        const formVotacion = document.getElementById('formVotacion');
-        if (formVotacion) {
-          formVotacion.addEventListener('submit', (e) => this.manejarVotacion(e));
-        }
-
-        // Botones del modal
-        const confirmarBtn = document.getElementById('confirmarVotoFinal');
-        const cancelarBtn = document.getElementById('cancelarVotoFinal');
-        const cancelarVoto = document.getElementById('cancelarVoto');
-
-        if (confirmarBtn) {
-          confirmarBtn.addEventListener('click', () => this.confirmarVoto());
-        }
-        if (cancelarBtn) {
-          cancelarBtn.addEventListener('click', () => UI.ocultarModal());
-        }
-        if (cancelarVoto) {
-          cancelarVoto.addEventListener('click', () => this.cancelarProceso());
-        }
-      },
-
-      // Verificar estado inicial
-      verificarEstado() {
-        // Aplicar tema guardado
-        const temaOscuro = localStorage.getItem('sves_tema_oscuro') === 'true';
-        if (temaOscuro) {
-          document.documentElement.classList.add('dark');
-        }
-      },
-
-      // Manejar identificación
-      manejarIdentificacion(e) {
+      const formIdentificacion = document.getElementById("formIdentificacion");
+      formIdentificacion.addEventListener("submit", e => {
         e.preventDefault();
-        
-        const formData = new FormData(e.target);
-        const codigo = formData.get('codigo').trim();
-        const facultad = formData.get('facultad');
-
-        // Validaciones básicas
+        const codigo = document.getElementById("codigo").value.trim();
+        const facultad = document.getElementById("facultad").value;
         if (!BusinessLogic.validarCodigo(codigo)) {
-          UI.mostrarMensaje('statusIdentificacion', '❌ Código debe tener 10 dígitos', 'error');
+          UI.mostrarMensaje("statusIdentificacion", "❌ Código inválido (10 dígitos)", "error");
           return;
         }
-
         if (!BusinessLogic.validarFacultad(facultad)) {
-          UI.mostrarMensaje('statusIdentificacion', '❌ Seleccione una facultad válida', 'error');
+          UI.mostrarMensaje("statusIdentificacion", "❌ Seleccione una facultad válida", "error");
           return;
         }
-
         if (DataLayer.yaVoto(codigo)) {
-          UI.mostrarMensaje('statusIdentificacion', '❌ Este código ya votó anteriormente', 'error');
+          UI.mostrarMensaje("statusIdentificacion", "⚠️ Ya has votado", "error");
           return;
         }
+        UI.mostrarFormularioVotacion();
+      });
 
-        // Éxito
-        this.usuarioActual = { codigo, facultad };
-        UI.mostrarMensaje('statusIdentificacion', '✅ Credenciales validadas', 'success');
-        
-        setTimeout(() => {
-          UI.mostrarFormularioVotacion();
-        }, 1000);
-      },
-
-      // Manejar votación
-      manejarVotacion(e) {
+      const formVotacion = document.getElementById("formVotacion");
+      formVotacion.addEventListener("submit", e => {
         e.preventDefault();
-        
-        const candidatoSeleccionado = document.querySelector('input[name="candidato"]:checked');
-        
-        if (!candidatoSeleccionado) {
-          UI.mostrarMensaje('statusVotacion', '❌ Debe seleccionar un candidato', 'error');
+        const candidato = formVotacion.querySelector("input[name='candidato']:checked");
+        if (!candidato) {
+          UI.mostrarMensaje("statusVotacion", "❌ Seleccione un candidato", "error");
           return;
         }
+        const candidatoObj = BusinessLogic.obtenerCandidato(candidato.value);
+        UI.abrirModalConfirmacion(candidatoObj.nombre);
+      });
 
-        const candidato = BusinessLogic.obtenerCandidato(candidatoSeleccionado.value);
-        if (candidato) {
-          UI.mostrarModal(candidato.nombre);
-        }
-      },
-
-      // Confirmar voto
-      confirmarVoto() {
-        const candidatoSeleccionado = document.querySelector('input[name="candidato"]:checked');
-        
-        if (!candidatoSeleccionado || !this.usuarioActual) {
-          UI.ocultarModal();
-          return;
-        }
-
-        const resultado = BusinessLogic.procesarVoto(
-          candidatoSeleccionado.value,
-          this.usuarioActual.codigo,
-          this.usuarioActual.facultad
-        );
-
-        UI.ocultarModal();
-
-        if (resultado.exito) {
-          UI.mostrarVotoExitoso();
-          UI.renderizarResultados();
-          console.log('✅ Voto registrado:', resultado.voto);
-        } else {
-          UI.mostrarMensaje('statusVotacion', `❌ ${resultado.mensaje}`, 'error');
-        }
-      },
-
-      // Cancelar proceso
-      cancelarProceso() {
-        this.usuarioActual = null;
+      document.getElementById("cancelarVoto").addEventListener("click", () => {
         UI.mostrarFormularioIdentificacion();
-        
-        // Limpiar formularios
-        const forms = document.querySelectorAll('form');
-        forms.forEach(form => form.reset());
-        
-        UI.mostrarMensaje('statusIdentificacion', '', 'info');
-        UI.mostrarMensaje('statusVotacion', '', 'info');
-      },
+      });
 
-      // Alternar tema
-      alternarTema() {
-        document.documentElement.classList.toggle('dark');
-        const esTemaOscuro = document.documentElement.classList.contains('dark');
-        localStorage.setItem('sves_tema_oscuro', esTemaOscuro.toString());
-      },
-
-      // Actualizar tiempo periódicamente
-      actualizarTiempoPeriodicamente() {
-        setInterval(() => {
-          UI.actualizarTiempo();
-          UI.renderizarResultados(); // Actualizar resultados también
-        }, 60000); // Cada minuto
-      }
-    };
-
-    // ===========================================================================================
-    // INICIALIZACIÓN DEL SISTEMA
-    // ===========================================================================================
-
-    // Inicializar cuando el DOM esté listo
-    document.addEventListener('DOMContentLoaded', function() {
-      Controller.init();
-    });
-
-    // ===========================================================================================
-    // FUNCIONES ADMINISTRATIVAS
-    // ===========================================================================================
-
-    window.SVES_Admin = {
-      reiniciar() {
-        if (confirm('¿Reiniciar todo el sistema?')) {
-          DataLayer.limpiarSistema();
-          location.reload();
+      document.getElementById("confirmarVotoFinal").addEventListener("click", () => {
+        const codigo = document.getElementById("codigo").value.trim();
+        const facultad = document.getElementById("facultad").value;
+        const candidatoId = formVotacion.querySelector("input[name='candidato']:checked").value;
+        const resultado = BusinessLogic.procesarVoto(parseInt(candidatoId), codigo, facultad);
+        if (resultado.exito) {
+          UI.mostrarMensaje("statusVotacion", "✅ " + resultado.mensaje, "success");
+          UI.renderizarResultados();
+          UI.mostrarFormularioIdentificacion();
+        } else {
+          UI.mostrarMensaje("statusVotacion", "❌ " + resultado.mensaje, "error");
         }
-      },
+        UI.cerrarModalConfirmacion();
+      });
 
-      exportar() {
-        const stats = BusinessLogic.obtenerEstadisticas();
-        const data = {
-          timestamp: new Date().toISOString(),
-          ...stats,
-          votos: DataLayer.obtenerVotos()
-        };
-        
-        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `sves_resultados_${new Date().toISOString().split('T')[0]}.json`;
-        a.click();
-        URL.revokeObjectURL(url);
-      },
-
-      stats() {
-        console.table(BusinessLogic.obtenerEstadisticas());
-      }
-    };
-
-    console.log(`
-🗳️ SISTEMA DE VOTACIÓN ELECTRÓNICA SEGURA (SVES)
-   Universidad Santo Tomás - Tunja
-   
-📊 Funciones Admin:
-   • SVES_Admin.reiniciar() - Reiniciar sistema
-   • SVES_Admin.exportar() - Exportar resultados
-   • SVES_Admin.stats() - Ver estadísticas
-   
-✅ Sistema inicializado correctamente
-`);
+      document.getElementById("cancelarVotoFinal").addEventListener("click", () => {
+        UI.cerrarModalConfirmacion();
+      });
+    });
   </script>
 </body>
 </html>
