@@ -1,91 +1,364 @@
 <!DOCTYPE html>
+
 <html lang="es" class="">
+
 <head>
+
   <meta charset="UTF-8" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <title>Sitio – Fase 6. Despliegue</title>
 
+
+
   <!-- Tailwind vía CDN -->
+
   <script src="https://cdn.tailwindcss.com"></script>
+
   <!-- Config Tailwind para activar modo oscuro por clase -->
+
   <script>
+
     tailwind.config = {
+
       darkMode: 'class'
+
     }
+
   </script>
 
+
+
   <meta name="description" content="Ejemplo de sitio estático listo para desplegar gratis en GitHub Pages o Netlify." />
+
 </head>
+
 <body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100">
+
   <!-- NAV -->
+
   <nav class="sticky top-0 bg-white/90 dark:bg-slate-900/80 backdrop-blur border-b border-slate-200 dark:border-slate-700">
+
     <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+
       <a href="#" class="font-semibold">Fase 6. Despliegue - USTA</a>
+
       <div class="flex items-center gap-3">
+
         <input id="search" type="search" placeholder="Buscar..."
-               class="border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-400 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring focus:ring-indigo-200 dark:focus:ring-indigo-500/30" />
+
+               class="border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-400 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring focus:ring-green-200 dark:focus:ring-green-500/30" />
+
         <button id="themeBtn"
+
                 class="text-sm px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800">
+
           Cambiar tema
+
         </button>
+
       </div>
+
     </div>
+
   </nav>
 
+
+
   <!-- HERO -->
-  <header class="bg-gradient-to-br from-indigo-600 to-indigo-800 text-white dark:from-indigo-700 dark:to-indigo-900">
+
+  <header class="bg-gradient-to-br from-green-600 to-green-800 text-white dark:from-green-700 dark:to-green-900">
+
     <div class="max-w-5xl mx-auto px-4 py-16">
-      <h1 class="text-3xl md:text-5xl font-bold">Estamos desplegando en minutos</h1>
-      <p class="mt-3 text-indigo-100/90 max-w-2xl">Este es un ejemplo de sitio estático listo para subir a GitHub Pages o Netlify. Incluye Tailwind por CDN y un poco de JavaScript.</p>
-      <a href="#features"
-         class="inline-block mt-6 bg-white text-indigo-700 dark:bg-slate-100 dark:text-indigo-900 font-medium px-5 py-2.5 rounded-xl shadow hover:shadow-md">
-         Ver características
-      </a>
+
+      <h1 class="text-3xl md:text-5xl font-bold">🚀 Desplegando aplicaciones modernas</h1>
+
+      <p class="mt-3 text-green-100/90 max-w-2xl">Descubre cómo crear y desplegar sitios web estáticos de forma rápida y eficiente. Este proyecto demuestra las mejores prácticas para el desarrollo web moderno usando tecnologías actuales.</p>
+
+      <div class="flex flex-wrap gap-4 mt-6">
+
+        <a href="#features"
+
+           class="inline-block bg-white text-green-700 dark:bg-slate-100 dark:text-green-900 font-medium px-5 py-2.5 rounded-xl shadow hover:shadow-md transition-all duration-200">
+
+           Ver características
+
+        </a>
+
+        <a href="#guia"
+
+           class="inline-block bg-green-500 hover:bg-green-400 text-white font-medium px-5 py-2.5 rounded-xl shadow hover:shadow-md transition-all duration-200">
+
+           📖 Guía de despliegue
+
+        </a>
+
+        <a href="#demo"
+
+           class="inline-block border-2 border-white hover:bg-white hover:text-green-700 text-white font-medium px-5 py-2.5 rounded-xl transition-all duration-200">
+
+           🎯 Ver demo
+
+        </a>
+
+      </div>
+
     </div>
+
   </header>
 
+
+
   <!-- FEATURES -->
+
   <section id="features" class="max-w-5xl mx-auto px-4 py-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    <article class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+
+    <article class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700 hover:shadow-md transition-shadow">
+
+      <div class="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-xl flex items-center justify-center mb-4">
+
+        <span class="text-2xl">⚡</span>
+
+      </div>
+
       <h3 class="font-semibold text-lg">Sin build</h3>
-      <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Usamos Tailwind por CDN (Red de Entrega de Contenido), así que no necesitas Node ni compilar.</p>
+
+      <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Usamos Tailwind por CDN (Red de Entrega de Contenido), así que no necesitas Node ni compilar. Desarrollo instantáneo.</p>
+
     </article>
-    <article class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
-      <h3 class="font-semibold text-lg">Ligero</h3>
-      <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Entorno de pruebas: Solo HTML, CSS y JS. Ideal para demos, portafolios o documentación.</p>
+
+    <article class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700 hover:shadow-md transition-shadow">
+
+      <div class="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-xl flex items-center justify-center mb-4">
+
+        <span class="text-2xl">🪶</span>
+
+      </div>
+
+      <h3 class="font-semibold text-lg">Ligero y rápido</h3>
+
+      <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Solo HTML, CSS y JS vanilla. Perfecto para demos, portafolios, documentación y proyectos académicos.</p>
+
     </article>
-    <article class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+
+    <article class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700 hover:shadow-md transition-shadow">
+
+      <div class="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-xl flex items-center justify-center mb-4">
+
+        <span class="text-2xl">🌐</span>
+
+      </div>
+
       <h3 class="font-semibold text-lg">Fácil de desplegar</h3>
-      <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Funciona perfecto con GitHub Pages o Netlify Drop (drag & drop).</p>
+
+      <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Compatible con GitHub Pages, Netlify Drop, Vercel y cualquier hosting estático. Despliega en segundos.</p>
+
     </article>
+
   </section>
+
+
+
+  <!-- NUEVA SECCIÓN: GUÍA DE DESPLIEGUE -->
+
+  <section id="guia" class="bg-green-50 dark:bg-green-900/10 py-12">
+
+    <div class="max-w-4xl mx-auto px-4">
+
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-8">📚 Guía rápida de despliegue</h2>
+
+      <div class="grid md:grid-cols-2 gap-8">
+
+        <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+
+          <h3 class="font-semibold text-lg mb-3">🐙 GitHub Pages</h3>
+
+          <ol class="space-y-2 text-sm text-slate-600 dark:text-slate-300">
+
+            <li>1. Sube tu código a un repositorio GitHub</li>
+
+            <li>2. Ve a Settings → Pages</li>
+
+            <li>3. Selecciona la rama main</li>
+
+            <li>4. ¡Tu sitio estará en línea!</li>
+
+          </ol>
+
+        </div>
+
+        <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+
+          <h3 class="font-semibold text-lg mb-3">🌟 Netlify</h3>
+
+          <ol class="space-y-2 text-sm text-slate-600 dark:text-slate-300">
+
+            <li>1. Arrastra tu carpeta a netlify.com/drop</li>
+
+            <li>2. Netlify procesará automáticamente</li>
+
+            <li>3. Obtienes una URL única</li>
+
+            <li>4. ¡Listo para compartir!</li>
+
+          </ol>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- DEMO SECTION -->
+
+  <section id="demo" class="max-w-5xl mx-auto px-4 py-12">
+
+    <div class="text-center mb-8">
+
+      <h2 class="text-2xl md:text-3xl font-bold mb-4">🎯 Características en acción</h2>
+
+      <p class="text-slate-600 dark:text-slate-300">Explora las funcionalidades de este sitio web moderno</p>
+
+    </div>
+
+    <div class="grid sm:grid-cols-2 gap-6">
+
+      <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+
+        <h3 class="font-semibold text-lg mb-3">🌙 Modo oscuro</h3>
+
+        <p class="text-sm text-slate-600 dark:text-slate-300 mb-4">Cambia entre tema claro y oscuro usando el botón en la navegación.</p>
+
+        <button onclick="document.documentElement.classList.toggle('dark')" 
+
+                class="bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 rounded-lg transition-colors">
+
+          Probar modo oscuro
+
+        </button>
+
+      </div>
+
+      <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+
+        <h3 class="font-semibold text-lg mb-3">🔍 Búsqueda</h3>
+
+        <p class="text-sm text-slate-600 dark:text-slate-300 mb-4">Campo de búsqueda funcional con diseño responsivo.</p>
+
+        <input type="search" placeholder="Prueba la búsqueda..."
+
+               class="w-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-400 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring focus:ring-green-200 dark:focus:ring-green-500/30" />
+
+      </div>
+
+    </div>
+
+  </section>
+
+
 
   <!-- CONTACTO -->
+
   <section class="max-w-2xl mx-auto px-4 pb-16">
+
     <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
-      <h2 class="text-xl font-semibold">Contacto</h2>
-      <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">Este formulario es de ejemplo (no envía datos a un backend).</p>
+
+      <h2 class="text-xl font-semibold">📬 Contacto y feedback</h2>
+
+      <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">Comparte tus comentarios sobre este proyecto de despliegue (formulario demo).</p>
+
       <form id="contactForm" class="mt-4 grid gap-4">
+
         <input name="nombre" required placeholder="Tu nombre"
-               class="border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-400 rounded-lg px-3 py-2" />
+
+               class="border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-400 rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-green-200 dark:focus:ring-green-500/30" />
+
         <input name="email" type="email" required placeholder="Tu email"
-               class="border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-400 rounded-lg px-3 py-2" />
-        <textarea name="mensaje" rows="4" required placeholder="Tu mensaje"
-                  class="border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-400 rounded-lg px-3 py-2"></textarea>
-        <button class="bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg px-4 py-2 w-fit">Enviar</button>
+
+               class="border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-400 rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-green-200 dark:focus:ring-green-500/30" />
+
+        <textarea name="mensaje" rows="4" required placeholder="Cuéntanos qué te parece este proyecto..."
+
+                  class="border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-400 rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-green-200 dark:focus:ring-green-500/30"></textarea>
+
+        <button class="bg-green-600 hover:bg-green-700 text-white rounded-lg px-4 py-2 w-fit transition-colors">Enviar feedback</button>
+
       </form>
+
       <p id="statusMsg" class="mt-3 text-sm"></p>
+
     </div>
+
   </section>
 
+
+
   <!-- FOOTER -->
+
   <footer class="border-t border-slate-200 dark:border-slate-700">
+
     <div class="max-w-5xl mx-auto px-4 py-6 text-sm text-slate-500 dark:text-slate-400 flex items-center justify-between">
-      <span>© <span id="year"></span> Sitio Fase 6. Despliegue - USTA</span>
-      <a class="hover:underline" href="https://tailwindcss.com/docs" target="_blank" rel="noreferrer">Tailwind Docs</a>
+
+      <span>© <span id="year"></span> Proyecto Fase 6 - Universidad Santo Tomás</span>
+
+      <div class="flex gap-4">
+
+        <a class="hover:underline hover:text-green-600" href="https://tailwindcss.com/docs" target="_blank" rel="noreferrer">Tailwind Docs</a>
+
+        <a class="hover:underline hover:text-green-600" href="https://pages.github.com/" target="_blank" rel="noreferrer">GitHub Pages</a>
+
+      </div>
+
     </div>
+
   </footer>
 
-  <script src="./script.js"></script>
+
+
+  <script>
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    document.getElementById('themeBtn').addEventListener('click', function() {
+
+      document.documentElement.classList.toggle('dark');
+
+    });
+
+
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+
+      e.preventDefault();
+
+      const statusMsg = document.getElementById('statusMsg');
+
+      statusMsg.textContent = '✅ ¡Mensaje enviado correctamente! (Demo)';
+
+      statusMsg.className = 'mt-3 text-sm text-green-600 dark:text-green-400';
+
+      this.reset();
+
+    });
+
+    document.getElementById('search').addEventListener('input', function(e) {
+
+      const query = e.target.value.toLowerCase();
+
+      if (query.length > 2) {
+
+        console.log('Buscando:', query);
+
+      }
+
+    });
+
+  </script>
+
 </body>
+
 </html>
